@@ -9,9 +9,13 @@ import { Observable } from "rxjs";
 
 import { AuthService } from "./auth.service";
 
+
 @Injectable()
 export class AuthGuard implements CanActivate {
+  private hasAccess: boolean;
+
   constructor(private authService: AuthService, private router: Router) {}
+
 
   canActivate(
     route: ActivatedRouteSnapshot,

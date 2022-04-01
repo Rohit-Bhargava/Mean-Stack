@@ -1,14 +1,32 @@
 <mat-card>
-  <mat-spinner *ngIf="isLoading"></mat-spinner>
-  <form (submit)="onSignup(signupForm)" #signupForm="ngForm" *ngIf="!isLoading">
+  
+  <form [formGroup]="signupForm" (submit)="onSignup()" #signupForm="ngForm">
+    <mat-form-field>
+      <input matInput name="name" ngModel type="text" placeholder="Name" #nameInput="ngModel" required email>
+      <mat-error *ngIf="nameInput.invalid">Please enter a valid name.</mat-error>
+    </mat-form-field>
     <mat-form-field>
       <input matInput name="email" ngModel type="email" placeholder="E-Mail" #emailInput="ngModel" required email>
       <mat-error *ngIf="emailInput.invalid">Please enter a valid email.</mat-error>
+    </mat-form-field>
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Telephone</mat-label>
+      <span matPrefix>+91 &nbsp;</span>
+      <input type="tel" matInput name="tel" ngModel #telInput="ngModel" required tel placeholder="555-555-1234">
+      <mat-icon matSuffix>mode_edit</mat-icon>
+      <mat-error *ngIf="telInput.invalid">Please enter a valid Mobile Number.</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-select>
+        <mat-option *ngFor="let role of roles" [value]="role.value" ngModel #roleInput="ngModel" required role>
+          {{role.viewValue}}
+        </mat-option>
+      </mat-select>
     </mat-form-field>
     <mat-form-field>
       <input type="password" name="password" ngModel matInput placeholder="Password" #passwordInput="ngModel" required>
       <mat-error *ngIf="passwordInput.invalid">Please enter a valid password.</mat-error>
     </mat-form-field>
-    <button mat-raised-button color="accent" type="submit" *ngIf="!isLoading">Signup</button>
+    <button mat-raised-button color="accent" type="submit" >Signup</button>
   </form>
 </mat-card>

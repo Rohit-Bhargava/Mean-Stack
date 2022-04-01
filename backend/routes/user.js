@@ -10,6 +10,9 @@ router.post("/signup", (req, res, next) => {
   bcrypt.hash(req.body.password, 10).then(hash => {
     const user = new User({
       email: req.body.email,
+      name: req.body.name,
+      tel: req.body.tel,
+      role: req.body.role,
       password: hash
     });
     user
@@ -26,6 +29,14 @@ router.post("/signup", (req, res, next) => {
         });
       });
   });
+});
+
+router.get("/users", function (req, res, next) {
+  return res.status(200).json(req.user);
+});
+
+router.getAll("/users",PermissionStatus= role.admin,function (req, res, next) {
+  return res.status(200).json(req.user);
 });
 
 router.post("/login", (req, res, next) => {
@@ -63,5 +74,7 @@ router.post("/login", (req, res, next) => {
       });
     });
 });
+
+
 
 module.exports = router;

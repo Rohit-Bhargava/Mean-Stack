@@ -1,12 +1,11 @@
+<div>
 <mat-toolbar color="primary">
-  <span>
-    <a routerLink="/">MyMessages</a>
-  </span>
+  <button mat-icon-button *ngIf="userIsAuthenticated" class="manu-icon" aria-label="Example icon-button with menu icon" (click)="drawer.toggle()">
+    <mat-icon>menu</mat-icon>&nbsp;
+  </button>
+  <span>My App</span>
   <span class="spacer"></span>
   <ul>
-    <li *ngIf="userIsAuthenticated">
-      <a mat-button routerLink="/create" routerLinkActive="mat-accent">New Post</a>
-    </li>
     <li *ngIf="!userIsAuthenticated">
       <a mat-button routerLink="/login" routerLinkActive="mat-accent">Login</a>
     </li>
@@ -18,3 +17,19 @@
     </li>
   </ul>
 </mat-toolbar>
+</div>
+
+<mat-drawer-container class="example-container">
+  <mat-drawer #drawer class="example-sidenav">
+    <mat-drawer-content>
+      <mat-nav-list>
+        
+          <button mat-button *ngIf="userIsAuthenticated" routerLink="/setting" routerLinkActive="mat-accent">Setting</button>
+        
+      </mat-nav-list>
+    </mat-drawer-content>
+  </mat-drawer>
+  <mat-drawer-content id="routerOutlet">
+    <router-outlet></router-outlet>
+  </mat-drawer-content>
+</mat-drawer-container>

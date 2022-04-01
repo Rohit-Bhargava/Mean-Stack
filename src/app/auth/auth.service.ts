@@ -15,6 +15,14 @@ export class AuthService {
 
   constructor(private http: HttpClient, private router: Router) {}
 
+  user() {
+    return this.http.get('http://localhost:3000/api/user/users', {
+      observe: 'body',
+      withCredentials: true,
+      
+    })
+  }
+
   getToken() {
     return this.token;
   }
@@ -31,8 +39,8 @@ export class AuthService {
     return this.authStatusListener.asObservable();
   }
 
-  createUser(email: string, password: string) {
-    const authData: AuthData = { email: email, password: password };
+  createUser(email: string, password: string, name: string, tel: number, role: string) {
+    const authData: AuthData = { email: email, password: password, name: name, tel: tel, role: role };
     this.http
       .post("http://localhost:3000/api/user/signup", authData)
       .subscribe(response => {
@@ -40,8 +48,8 @@ export class AuthService {
       });
   }
 
-  login(email: string, password: string) {
-    const authData: AuthData = { email: email, password: password };
+  login(email: string, password: string, name: string, tel: number, role: string) {
+    const authData: AuthData = { email: email, password: password, name: name, tel: tel, role: role };
     this.http
       .post<{ token: string; expiresIn: number, userId: string }>(
         "http://localhost:3000/api/user/login",
